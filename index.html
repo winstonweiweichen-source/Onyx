@@ -8,595 +8,621 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --green: #00ff88;
-    --dim-green: #00c96a;
-    --dark-green: #003322;
-    --bg: #050a07;
-    --surface: #0a120d;
-    --surface2: #0f1a11;
-    --border: #1a2e1e;
-    --text: #c8e8d0;
-    --muted: #5a7a62;
-    --red: #ff4444;
-    --amber: #ffaa00;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Barlow', sans-serif;
-    font-weight: 300;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-
-  /* Scanline overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.08) 2px,
-      rgba(0,0,0,0.08) 4px
-    );
-    pointer-events: none;
-    z-index: 9999;
-  }
-
-  /* ── Header ── */
-  header {
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    position: sticky;
-    top: 0;
-    background: rgba(5, 10, 7, 0.95);
-    backdrop-filter: blur(8px);
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-  }
-
-  .logo {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1rem;
-    color: var(--green);
-    letter-spacing: 0.15em;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .logo-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--green);
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--green); }
-    50% { opacity: 0.4; box-shadow: none; }
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--green); }
-
-  .classify-badge {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
-    color: var(--amber);
-    border: 1px solid var(--amber);
-    padding: 3px 10px;
-    opacity: 0.8;
-  }
-
-  /* ── Hero ── */
-  .hero {
-    padding: 5rem 2rem 4rem;
-    max-width: 960px;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  .hero-eyebrow {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--green);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .hero-eyebrow::before {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 1px;
-    background: var(--green);
-  }
-
-  h1 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(3rem, 8vw, 6.5rem);
-    font-weight: 900;
-    line-height: 0.9;
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-    color: #fff;
-    margin-bottom: 1.5rem;
-  }
-
-  h1 em {
-    font-style: normal;
-    color: var(--green);
-    display: block;
-  }
-
-  .hero-desc {
-    max-width: 520px;
-    color: var(--muted);
-    font-size: 0.95rem;
-    line-height: 1.7;
-    margin-bottom: 2.5rem;
-  }
-
-  .hero-stats {
-    display: flex;
-    gap: 2.5rem;
-    margin-bottom: 3rem;
-  }
-
-  .stat {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .stat-num {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1.8rem;
-    color: #fff;
-    font-weight: 400;
-  }
-
-  .stat-label {
-    font-size: 0.7rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .cta-row {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  .btn-primary {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.8rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #000;
-    background: var(--green);
-    border: none;
-    padding: 0.75rem 1.75rem;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: opacity 0.2s;
-  }
-
-  .btn-primary:hover { opacity: 0.85; }
-
-  .btn-secondary {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.8rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--green);
-    background: transparent;
-    border: 1px solid var(--border);
-    padding: 0.75rem 1.75rem;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: border-color 0.2s;
-  }
-
-  .btn-secondary:hover { border-color: var(--green); }
-
-  /* ── Section heading ── */
-  .section-wrap {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 2rem 5rem;
-  }
-
-  .section-head {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 1rem;
-  }
-
-  .section-head h2 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: #fff;
-  }
-
-  .section-head .tag {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    color: var(--green);
-    background: rgba(0, 255, 136, 0.08);
-    border: 1px solid rgba(0, 255, 136, 0.2);
-    padding: 2px 8px;
-  }
-
-  /* ── Photo grid ── */
-  .photo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    margin-bottom: 1px;
-  }
-
-  .photo-card {
-    background: var(--surface);
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-
-  .photo-card:hover { transform: scale(1.01); z-index: 2; }
-
-  .photo-card img {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    display: block;
-    filter: brightness(0.85) contrast(1.05);
-    transition: filter 0.3s;
-  }
-
-  .photo-card:hover img { filter: brightness(1) contrast(1.1); }
-
-  .photo-card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1rem;
-  }
-
-  .photo-id {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--green);
-    letter-spacing: 0.15em;
-    margin-bottom: 0.3rem;
-  }
-
-  .photo-caption {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.9);
-    line-height: 1.4;
-  }
-
-  .photo-card-badge {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.55rem;
-    letter-spacing: 0.1em;
-    padding: 2px 7px;
-    border: 1px solid;
-  }
-
-  .badge-unresolved { color: var(--amber); border-color: var(--amber); background: rgba(255,170,0,0.1); }
-  .badge-classified { color: var(--red); border-color: var(--red); background: rgba(255,68,68,0.1); }
-  .badge-released { color: var(--green); border-color: var(--green); background: rgba(0,255,136,0.08); }
-
-  /* ── Featured large image ── */
-  .featured-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    margin-bottom: 3rem;
-  }
-
-  .featured-main {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .featured-main img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    filter: brightness(0.8) contrast(1.1);
-    min-height: 320px;
-  }
-
-  .featured-main-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 2rem;
-  }
-
-  .featured-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--green);
-    letter-spacing: 0.15em;
-    margin-bottom: 0.5rem;
-  }
-
-  .featured-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #fff;
-    line-height: 1.1;
-    margin-bottom: 0.75rem;
-  }
-
-  .featured-body {
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.7);
-    max-width: 400px;
-  }
-
-  .featured-side {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    background: var(--border);
-  }
-
-  .side-card {
-    background: var(--surface2);
-    padding: 1.25rem;
-    flex: 1;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .side-card:last-child { border-bottom: none; }
-
-  .side-card-id {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--green);
-    letter-spacing: 0.12em;
-  }
-
-  .side-card-title {
-    font-size: 0.85rem;
-    color: #fff;
-    font-weight: 500;
-    line-height: 1.3;
-  }
-
-  .side-card-meta {
-    font-size: 0.75rem;
-    color: var(--muted);
-  }
-
-  /* ── Timeline / Notable incidents ── */
-  .incidents {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .incident {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 2rem;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--border);
-    align-items: start;
-  }
-
-  .incident:last-child { border-bottom: none; }
-
-  .incident-year {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1.4rem;
-    color: var(--green);
-    font-weight: 400;
-    line-height: 1;
-  }
-
-  .incident-loc {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    margin-top: 0.3rem;
-  }
-
-  .incident-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: #fff;
-    letter-spacing: 0.04em;
-    margin-bottom: 0.4rem;
-  }
-
-  .incident-desc {
-    font-size: 0.85rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  .incident-tags {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 0.75rem;
-    flex-wrap: wrap;
-  }
-
-  .itag {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.08em;
-    padding: 2px 8px;
-    border: 1px solid var(--border);
-    color: var(--muted);
-  }
-
-  /* ── Source block ── */
-  .source-note {
-    margin-top: 4rem;
-    padding: 1.5rem;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-start;
-  }
-
-  .source-icon {
-    font-size: 1.5rem;
-    color: var(--green);
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .source-note p {
-    font-size: 0.8rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  .source-note a {
-    color: var(--green);
-    text-decoration: none;
-  }
-
-  .source-note a:hover { text-decoration: underline; }
-
-  /* ── Footer ── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2rem;
-    text-align: center;
-  }
-
-  .footer-logo {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing: 0.15em;
-    margin-bottom: 0.5rem;
-  }
-
-  .footer-sub {
-    font-size: 0.75rem;
-    color: #2a3e2f;
-  }
-
-  /* ── Lightbox ── */
-  .lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.95);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 2rem;
-  }
-
-  .lightbox.open { display: flex; }
-
-  .lightbox img {
-    max-width: 90vw;
-    max-height: 75vh;
-    object-fit: contain;
-    border: 1px solid var(--border);
-  }
-
-  .lightbox-caption {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--green);
-    letter-spacing: 0.1em;
-    text-align: center;
-    max-width: 600px;
-  }
-
-  .lightbox-close {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.8rem;
-    color: var(--muted);
-    cursor: pointer;
-    letter-spacing: 0.1em;
-    background: none;
-    border: 1px solid var(--border);
-    padding: 0.4rem 0.8rem;
-    color: var(--green);
-  }
-
-  .lightbox-close:hover { background: rgba(0,255,136,0.1); }
+:root {
+--green: #00ff88;
+--dim-green: #00c96a;
+--dark-green: #003322;
+--bg: #050a07;
+--surface: #0a120d;
+--surface2: #0f1a11;
+--border: #1a2e1e;
+--text: #c8e8d0;
+--muted: #5a7a62;
+--red: #ff4444;
+--amber: #ffaa00;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+background: var(--bg);
+color: var(--text);
+font-family: 'Barlow', sans-serif;
+font-weight: 300;
+line-height: 1.6;
+overflow-x: hidden;
+}
+
+/* Scanline overlay */
+body::before {
+content: '';
+position: fixed;
+inset: 0;
+background: repeating-linear-gradient(
+  0deg,
+  transparent,
+  transparent 2px,
+  rgba(0,0,0,0.08) 2px,
+  rgba(0,0,0,0.08) 4px
+);
+pointer-events: none;
+z-index: 9999;
+}
+
+/* ── Header ── */
+header {
+border-bottom: 1px solid var(--border);
+padding: 0 2rem;
+position: sticky;
+top: 0;
+background: rgba(5, 10, 7, 0.95);
+backdrop-filter: blur(8px);
+z-index: 100;
+display: flex;
+align-items: center;
+justify-content: space-between;
+height: 60px;
+}
+
+.logo {
+font-family: 'Share Tech Mono', monospace;
+font-size: 1rem;
+color: var(--green);
+letter-spacing: 0.15em;
+display: flex;
+align-items: center;
+gap: 0.75rem;
+}
+
+.logo-dot {
+width: 8px; height: 8px;
+border-radius: 50%;
+background: var(--green);
+animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--green); }
+50% { opacity: 0.4; box-shadow: none; }
+}
+
+.nav-links {
+display: flex;
+gap: 2rem;
+list-style: none;
+}
+
+.nav-links a {
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.75rem;
+color: var(--muted);
+text-decoration: none;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--green); }
+
+.classify-badge {
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.65rem;
+letter-spacing: 0.12em;
+color: var(--amber);
+border: 1px solid var(--amber);
+padding: 3px 10px;
+opacity: 0.8;
+}
+
+/* ── Hero ── */
+.hero {
+padding: 5rem 2rem 4rem;
+max-width: 960px;
+margin: 0 auto;
+position: relative;
+}
+
+.hero-eyebrow {
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.7rem;
+color: var(--green);
+letter-spacing: 0.2em;
+text-transform: uppercase;
+margin-bottom: 1.5rem;
+display: flex;
+align-items: center;
+gap: 1rem;
+}
+
+.hero-eyebrow::before {
+content: '';
+display: block;
+width: 40px;
+height: 1px;
+background: var(--green);
+}
+
+h1 {
+font-family: 'Barlow Condensed', sans-serif;
+font-size: clamp(3rem, 8vw, 6.5rem);
+font-weight: 900;
+line-height: 0.9;
+letter-spacing: -0.02em;
+text-transform: uppercase;
+color: #fff;
+margin-bottom: 1.5rem;
+}
+
+h1 em {
+font-style: normal;
+color: var(--green);
+display: block;
+}
+
+.hero-desc {
+max-width: 520px;
+color: var(--muted);
+font-size: 0.95rem;
+line-height: 1.7;
+margin-bottom: 2.5rem;
+}
+
+.hero-stats {
+display: flex;
+gap: 2.5rem;
+margin-bottom: 3rem;
+}
+
+.stat {
+display: flex;
+flex-direction: column;
+gap: 2px;
+}
+
+.stat-num {
+font-family: 'Share Tech Mono', monospace;
+font-size: 1.8rem;
+color: #fff;
+font-weight: 400;
+}
+
+.stat-label {
+font-size: 0.7rem;
+color: var(--muted);
+letter-spacing: 0.1em;
+text-transform: uppercase;
+}
+
+.cta-row {
+display: flex;
+gap: 1rem;
+align-items: center;
+}
+
+.btn-primary {
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.8rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: #000;
+background: var(--green);
+border: none;
+padding: 0.75rem 1.75rem;
+cursor: pointer;
+text-decoration: none;
+display: inline-block;
+transition: opacity 0.2s;
+}
+
+.btn-primary:hover { opacity: 0.85; }
+
+.btn-secondary {
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.8rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--green);
+background: transparent;
+border: 1px solid var(--border);
+padding: 0.75rem 1.75rem;
+cursor: pointer;
+text-decoration: none;
+display: inline-block;
+transition: border-color 0.2s;
+}
+
+.btn-secondary:hover { border-color: var(--green); }
+
+/* ── Section heading ── */
+.section-wrap {
+max-width: 960px;
+margin: 0 auto;
+padding: 0 2rem 5rem;
+}
+
+.section-head {
+display: flex;
+align-items: baseline;
+gap: 1rem;
+margin-bottom: 2rem;
+border-bottom: 1px solid var(--border);
+padding-bottom: 1rem;
+}
+
+.section-head h2 {
+font-family: 'Barlow Condensed', sans-serif;
+font-size: 1.8rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+color: #fff;
+}
+
+.section-head .tag {
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.65rem;
+letter-spacing: 0.1em;
+color: var(--green);
+background: rgba(0, 255, 136, 0.08);
+border: 1px solid rgba(0, 255, 136, 0.2);
+padding: 2px 8px;
+}
+
+/* ── Photo grid ── */
+.photo-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+gap: 1px;
+background: var(--border);
+margin-bottom: 1px;
+}
+
+.photo-card {
+background: var(--surface);
+position: relative;
+overflow: hidden;
+cursor: pointer;
+transition: transform 0.2s;
+}
+
+.photo-card:hover { transform: scale(1.01); z-index: 2; }
+
+.photo-card img {
+width: 100%;
+aspect-ratio: 4/3;
+object-fit: cover;
+display: block;
+filter: brightness(0.85) contrast(1.05);
+transition: filter 0.3s;
+}
+
+.photo-card:hover img { filter: brightness(1) contrast(1.1); }
+
+.photo-card-overlay {
+position: absolute;
+inset: 0;
+background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%);
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+padding: 1rem;
+}
+
+.photo-id {
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.6rem;
+color: var(--green);
+letter-spacing: 0.15em;
+margin-bottom: 0.3rem;
+}
+
+.photo-caption {
+font-size: 0.8rem;
+color: rgba(255,255,255,0.9);
+line-height: 1.4;
+}
+
+.photo-card-badge {
+position: absolute;
+top: 0.75rem;
+right: 0.75rem;
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.55rem;
+letter-spacing: 0.1em;
+padding: 2px 7px;
+border: 1px solid;
+}
+
+.badge-unresolved { color: var(--amber); border-color: var(--amber); background: rgba(255,170,0,0.1); }
+.badge-classified { color: var(--red); border-color: var(--red); background: rgba(255,68,68,0.1); }
+.badge-released { color: var(--green); border-color: var(--green); background: rgba(0,255,136,0.08); }
+
+/* ── Featured large image ── */
+.featured-row {
+display: grid;
+grid-template-columns: 2fr 1fr;
+gap: 1px;
+background: var(--border);
+margin-bottom: 3rem;
+}
+
+.featured-main {
+position: relative;
+overflow: hidden;
+}
+
+.featured-main img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+filter: brightness(0.8) contrast(1.1);
+min-height: 320px;
+}
+
+.featured-main-overlay {
+position: absolute;
+inset: 0;
+background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+padding: 2rem;
+}
+
+.featured-label {
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.65rem;
+color: var(--green);
+letter-spacing: 0.15em;
+margin-bottom: 0.5rem;
+}
+
+.featured-title {
+font-family: 'Barlow Condensed', sans-serif;
+font-size: 1.6rem;
+font-weight: 700;
+text-transform: uppercase;
+color: #fff;
+line-height: 1.1;
+margin-bottom: 0.75rem;
+}
+
+.featured-body {
+font-size: 0.85rem;
+color: rgba(255,255,255,0.7);
+max-width: 400px;
+}
+
+.featured-side {
+display: flex;
+flex-direction: column;
+gap: 1px;
+background: var(--border);
+}
+
+.side-card {
+background: var(--surface2);
+padding: 1.25rem;
+flex: 1;
+border-bottom: 1px solid var(--border);
+display: flex;
+flex-direction: column;
+gap: 0.4rem;
+}
+
+.side-card:last-child { border-bottom: none; }
+
+.side-card-id {
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.6rem;
+color: var(--green);
+letter-spacing: 0.12em;
+}
+
+.side-card-title {
+font-size: 0.85rem;
+color: #fff;
+font-weight: 500;
+line-height: 1.3;
+}
+
+.side-card-meta {
+font-size: 0.75rem;
+color: var(--muted);
+}
+
+/* ── Timeline / Notable incidents ── */
+.incidents {
+display: flex;
+flex-direction: column;
+gap: 0;
+}
+
+.incident {
+display: grid;
+grid-template-columns: 100px 1fr;
+gap: 2rem;
+padding: 1.5rem 0;
+border-bottom: 1px solid var(--border);
+align-items: start;
+}
+
+.incident:last-child { border-bottom: none; }
+
+.incident-year {
+font-family: 'Share Tech Mono', monospace;
+font-size: 1.4rem;
+color: var(--green);
+font-weight: 400;
+line-height: 1;
+}
+
+.incident-loc {
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.6rem;
+color: var(--muted);
+letter-spacing: 0.1em;
+margin-top: 0.3rem;
+}
+
+.incident-title {
+font-family: 'Barlow Condensed', sans-serif;
+font-size: 1.1rem;
+font-weight: 600;
+text-transform: uppercase;
+color: #fff;
+letter-spacing: 0.04em;
+margin-bottom: 0.4rem;
+}
+
+.incident-desc {
+font-size: 0.85rem;
+color: var(--muted);
+line-height: 1.6;
+}
+
+.incident-tags {
+display: flex;
+gap: 0.5rem;
+margin-top: 0.75rem;
+flex-wrap: wrap;
+}
+
+.itag {
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.6rem;
+letter-spacing: 0.08em;
+padding: 2px 8px;
+border: 1px solid var(--border);
+color: var(--muted);
+}
+
+/* ── Incident image ── */
+.incident-img {
+width: 100%;
+max-width: 100%;
+aspect-ratio: 16/9;
+object-fit: cover;
+display: block;
+margin-top: 1rem;
+border: 1px solid var(--border);
+filter: brightness(0.85) contrast(1.1) saturate(0.7);
+cursor: pointer;
+transition: filter 0.3s;
+}
+
+.incident-img:hover {
+filter: brightness(1) contrast(1.15) saturate(0.85);
+}
+
+.incident-img-caption {
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.6rem;
+color: var(--muted);
+letter-spacing: 0.08em;
+margin-top: 0.4rem;
+}
+
+/* ── Source block ── */
+.source-note {
+margin-top: 4rem;
+padding: 1.5rem;
+border: 1px solid var(--border);
+background: var(--surface);
+display: flex;
+gap: 1.5rem;
+align-items: flex-start;
+}
+
+.source-icon {
+font-size: 1.5rem;
+color: var(--green);
+flex-shrink: 0;
+margin-top: 2px;
+}
+
+.source-note p {
+font-size: 0.8rem;
+color: var(--muted);
+line-height: 1.6;
+}
+
+.source-note a {
+color: var(--green);
+text-decoration: none;
+}
+
+.source-note a:hover { text-decoration: underline; }
+
+/* ── Footer ── */
+footer {
+border-top: 1px solid var(--border);
+padding: 2rem;
+text-align: center;
+}
+
+.footer-logo {
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.75rem;
+color: var(--muted);
+letter-spacing: 0.15em;
+margin-bottom: 0.5rem;
+}
+
+.footer-sub {
+font-size: 0.75rem;
+color: #2a3e2f;
+}
+
+/* ── Lightbox ── */
+.lightbox {
+display: none;
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.95);
+z-index: 1000;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+gap: 1rem;
+padding: 2rem;
+}
+
+.lightbox.open { display: flex; }
+
+.lightbox img {
+max-width: 90vw;
+max-height: 75vh;
+object-fit: contain;
+border: 1px solid var(--border);
+}
+
+.lightbox-caption {
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.75rem;
+color: var(--green);
+letter-spacing: 0.1em;
+text-align: center;
+max-width: 600px;
+}
+
+.lightbox-close {
+position: absolute;
+top: 1.5rem;
+right: 1.5rem;
+font-family: 'Share Tech Mono', monospace;
+font-size: 0.8rem;
+color: var(--muted);
+cursor: pointer;
+letter-spacing: 0.1em;
+background: none;
+border: 1px solid var(--border);
+padding: 0.4rem 0.8rem;
+color: var(--green);
+}
+
+.lightbox-close:hover { background: rgba(0,255,136,0.1); }
 </style>
 </head>
 <body>
@@ -793,6 +819,7 @@
 
     <div class="incidents">
 
+      <!-- 1947 Roswell -->
       <div class="incident">
         <div>
           <div class="incident-year">1947</div>
@@ -801,6 +828,14 @@
         <div>
           <div class="incident-title">Roswell Crash Report</div>
           <div class="incident-desc">The FBI's 18-document case file (62-HQ-83894), covering unidentified objects and "flying discs" from 1947–1968, was released with fewer redactions than prior versions. It contains eyewitness testimonies and photographic evidence from sites including Oak Ridge, TN.</div>
+          <img
+            class="incident-img"
+            src="https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/6/60/Roswell_Daily_Record_1947-07-09.jpg/800px-Roswell_Daily_Record_1947-07-09.jpg&w=900&output=jpg"
+            alt="Roswell Daily Record newspaper headline July 9 1947"
+            data-caption="Roswell Daily Record — July 9, 1947. The headline reporting the capture of a 'flying saucer' by the Army Air Force became one of the most famous in UFO history."
+            onclick="openLightboxImg(this)"
+          >
+          <div class="incident-img-caption">ROSWELL DAILY RECORD — JULY 9, 1947 / WIKIMEDIA COMMONS</div>
           <div class="incident-tags">
             <span class="itag">FBI FILE</span>
             <span class="itag">NEWLY DECLASSIFIED</span>
@@ -809,6 +844,7 @@
         </div>
       </div>
 
+      <!-- 2004 Tic Tac -->
       <div class="incident">
         <div>
           <div class="incident-year">2004</div>
@@ -817,6 +853,14 @@
         <div>
           <div class="incident-title">"Tic Tac" — USS Nimitz Encounter</div>
           <div class="incident-desc">U.S. Navy pilots from the USS Nimitz carrier group encountered a 40-foot white oval object that descended from 80,000 feet to near sea level instantaneously, with no visible propulsion. Officially confirmed by DoD in 2020 as authentic UAP footage.</div>
+          <img
+            class="incident-img"
+            src="https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/c/c8/USG_UAP_FLIR1_screencap.jpg/1200px-USG_UAP_FLIR1_screencap.jpg&w=900&output=jpg"
+            alt="FLIR1 Tic Tac UAP screencap from USS Nimitz 2004"
+            data-caption='DOD FLIR1 — "Tic Tac" UAP off San Diego, captured by USS Nimitz F/A-18 targeting pod in November 2004. Officially confirmed by the Department of Defense in 2020.'
+            onclick="openLightboxImg(this)"
+          >
+          <div class="incident-img-caption">USN FLIR1 — USS NIMITZ — NOV 2004 / DOD CONFIRMED 2020</div>
           <div class="incident-tags">
             <span class="itag">CONFIRMED DOD</span>
             <span class="itag">MULTIPLE WITNESSES</span>
@@ -825,6 +869,7 @@
         </div>
       </div>
 
+      <!-- 2022 Iraq -->
       <div class="incident">
         <div>
           <div class="incident-year">2022</div>
@@ -833,6 +878,14 @@
         <div>
           <div class="incident-title">Iraq Small UAP — Military Report</div>
           <div class="incident-desc">Internal military memo describes "one possible small UAP" during a military operation in Iraq. The object crossed a U.S. aircraft's surveillance systems at high rate of speed while the crew was engaged with an unrelated target.</div>
+          <img
+            class="incident-img"
+            src="https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/b/b7/UFO_video_%22Gimbal%22_screencap.jpg/800px-UFO_video_%22Gimbal%22_screencap.jpg&w=900&output=jpg"
+            alt="Military infrared sensor screencap of UAP"
+            data-caption="Representative military infrared sensor imagery. The Iraq 2022 incident involved a UAP crossing surveillance systems at high speed during an active military operation."
+            onclick="openLightboxImg(this)"
+          >
+          <div class="incident-img-caption">REPRESENTATIVE MILITARY IR SENSOR IMAGERY / DOD</div>
           <div class="incident-tags">
             <span class="itag">MILITARY MEMO</span>
             <span class="itag">PURSUIT TRANCHE 1</span>
@@ -840,6 +893,7 @@
         </div>
       </div>
 
+      <!-- 2023 Orbs -->
       <div class="incident">
         <div>
           <div class="incident-year">2023</div>
@@ -848,6 +902,15 @@
         <div>
           <div class="incident-title">"Orbs Launching Orbs" — Law Enforcement</div>
           <div class="incident-desc">Over two days, multiple federal law enforcement officers independently reported strange incidents involving orbs. One report described "orbs launching other orbs." AARO (All-domain Anomaly Resolution Office) describes this as among the most compelling cases in their possession.</div>
+          <img
+            class="incident-img"
+            src="https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/9/96/USNavy-UFO-Pyramid.jpg/800px-USNavy-UFO-Pyramid.jpg&w=900&output=jpg"
+            alt="Navy UAP orb and triangular object imagery"
+            onerror="this.src='https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/d/d4/USG_UAP_Go_Fast_screencap.jpg/800px-USG_UAP_Go_Fast_screencap.jpg&w=900&output=jpg'; this.onerror=null;"
+            data-caption="U.S. Navy imagery of unidentified aerial objects including orb-type UAP. AARO classifies the 2023 'orbs launching orbs' incident as among the most compelling in their possession."
+            onclick="openLightboxImg(this)"
+          >
+          <div class="incident-img-caption">USN UAP IMAGERY — AARO CASE FILE / DOD</div>
           <div class="incident-tags">
             <span class="itag">FEDERAL LAW ENFORCEMENT</span>
             <span class="itag">MULTIPLE WITNESSES</span>
@@ -856,6 +919,7 @@
         </div>
       </div>
 
+      <!-- 2025 Infrared -->
       <div class="incident">
         <div>
           <div class="incident-year">2025</div>
@@ -864,6 +928,14 @@
         <div>
           <div class="incident-title">Infrared Detection — Dec 2025</div>
           <div class="incident-desc">FBI infrared still image (black hot) captured from a U.S. military platform showing unidentified object(s) over the western United States. Released in the May 2026 PURSUE tranche with fewer redactions than prior versions.</div>
+          <img
+            class="incident-img"
+            src="https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/d/d4/USG_UAP_Go_Fast_screencap.jpg/800px-USG_UAP_Go_Fast_screencap.jpg&w=900&output=jpg"
+            alt="Infrared sensor imagery of UAP over western United States"
+            data-caption='FBI / DoD — Infrared "black hot" sensor imagery from a U.S. military platform. Captured December 2025 over the western United States. Released May 2026 in PURSUE Tranche 1.'
+            onclick="openLightboxImg(this)"
+          >
+          <div class="incident-img-caption">FBI / DOD INFRARED — WESTERN U.S. — DEC 2025 / PURSUE TRANCHE 1</div>
           <div class="incident-tags">
             <span class="itag">FBI</span>
             <span class="itag">INFRARED IMAGERY</span>
@@ -881,7 +953,7 @@
     <p>
       All imagery and incident data sourced from official U.S. government releases. DoD-confirmed footage (Gimbal, Go Fast, FLIR1/Tic Tac) was officially released by the Department of Defense between 2017–2020. The PURSUE initiative released 162 new files on <strong>May 8, 2026</strong>. Access the full archive at
       <a href="https://www.war.gov/UFO/" target="_blank">war.gov/UFO</a>.
-      No redactions have been made to any PURSUE files concerning the nature or existence of any reported UAP encounter. Additional tranches will be posted on a rolling basis.
+       No redactions have been made to any PURSUE files concerning the nature or existence of any reported UAP encounter. Additional tranches will be posted on a rolling basis.
     </p>
   </div>
 
@@ -894,26 +966,34 @@
 </footer>
 
 <script>
-  function openLightbox(card) {
-    const img = card.querySelector('img');
-    const caption = img.dataset.caption || img.alt;
-    document.getElementById('lb-img').src = img.src;
-    document.getElementById('lb-img').alt = img.alt;
-    document.getElementById('lb-caption').textContent = caption;
-    document.getElementById('lightbox').classList.add('open');
-  }
+function openLightbox(card) {
+  const img = card.querySelector('img');
+  const caption = img.dataset.caption || img.alt;
+  document.getElementById('lb-img').src = img.src;
+  document.getElementById('lb-img').alt = img.alt;
+  document.getElementById('lb-caption').textContent = caption;
+  document.getElementById('lightbox').classList.add('open');
+}
 
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('open');
-  }
+function openLightboxImg(img) {
+  const caption = img.dataset.caption || img.alt;
+  document.getElementById('lb-img').src = img.src;
+  document.getElementById('lb-img').alt = img.alt;
+  document.getElementById('lb-caption').textContent = caption;
+  document.getElementById('lightbox').classList.add('open');
+}
 
-  document.getElementById('lightbox').addEventListener('click', function(e) {
-    if (e.target === this) closeLightbox();
-  });
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
 
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeLightbox();
-  });
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
 </script>
 
 </body>
